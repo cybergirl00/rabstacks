@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Copy, ShoppingCart, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import DynamicPreview from "./DynamicPreview";
 
 interface ComponentCardProps {
   component: {
@@ -16,6 +17,7 @@ interface ComponentCardProps {
     description?: string;
     framework: string;
     code: string;
+    editedCode: string;
     screenshotUrl?: string;
     isForSale: boolean;
     price?: number;
@@ -23,9 +25,10 @@ interface ComponentCardProps {
     createdAt: number;
   };
   showActions?: boolean;
+  isOwner?: boolean;
 }
 
-export function ComponentCard({ component, showActions = true }: ComponentCardProps) {
+export function ComponentCard({ component, showActions = true, isOwner = false }: ComponentCardProps) {
   const handleCopyCode = () => {
     navigator.clipboard.writeText(component.code);
     toast.success("Code copied to clipboard!");
@@ -50,7 +53,14 @@ export function ComponentCard({ component, showActions = true }: ComponentCardPr
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-2xl font-mono text-gray-400">
-                {"<" + component.framework + "/>"}
+
+                {!component.code ? (
+                  <>
+                  {"<" + component.framework + "/>"}
+                  </>
+                ): (
+                     <DynamicPreview code={component.editedCode} />
+                )}
               </div>
             </div>
           )}

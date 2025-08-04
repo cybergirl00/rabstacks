@@ -36,6 +36,7 @@ export default function NewProjectPage() {
 
     setIsLoading(true);
     try {
+
       const projectId = await createProject({
         userId: user.id,
         name: formData.name,

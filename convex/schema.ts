@@ -33,6 +33,7 @@ export default defineSchema({
     description: v.optional(v.string()),
     framework: v.string(),
     code: v.string(),
+    editedCode: v.string(),
     screenshotUrl: v.optional(v.string()),
     isPublic: v.boolean(),
     isForSale: v.boolean(),
